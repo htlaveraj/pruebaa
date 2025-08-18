@@ -16,29 +16,29 @@ export default function ShowcaseMosaic() {
       <div className={styles.shell}>
         <div className={styles.grid}>
           {/* Izquierda: imagen grande contenida SOLO en su tile */}
-      {/* --- Columna izquierda (SIN fill, 100% contenida) --- */}
-<article className={styles.leftTile}>
-  <div className={styles.ratio}>
-    <Image
-      src={img.left}
-      alt="Nueva colección Lunitex x LENTILU"
-      width={1600}              // cualquier relación 16:11 funciona
-      height={1100}
-      priority
-      className={styles.imgCoverStatic}
-    />
-  </div>
+          {/* --- Columna izquierda (SIN fill, 100% contenida) --- */}
+          <article className={styles.leftTile}>
+            <div className={styles.ratio}>
+              <Image
+                src={img.left}
+                alt="Nueva colección Lunitex x LENTILU"
+                width={1600}              // cualquier relación 16:11 funciona
+                height={1100}
+                priority
+                className={styles.imgCoverStatic}
+              />
+            </div>
 
-  <div className={styles.overlay}>
-    <p className={styles.kicker}>NUEVA COLECCIÓN</p>
-    <h2 className={styles.title}>Serie Titanio Lunitex</h2>
-    <p className={styles.subtitle}>Ligeros, resistentes y listos para todo el día.</p>
-    <div className={styles.ctas}>
-      <Link href="/hombre" className={styles.glassBtn}>HOMBRE</Link>
-      <Link href="/mujer"  className={styles.glassBtn}>MUJER</Link>
-    </div>
-  </div>
-</article>
+            <div className={styles.overlay}>
+              <p className={styles.kicker}>NUEVA COLECCIÓN</p>
+              <h2 className={styles.title}>Serie Titanio Lunitex</h2>
+              <p className={styles.subtitle}>Ligeros, resistentes y listos para todo el día.</p>
+              <div className={styles.ctas}>
+                <Link href="/hombre" className={styles.glassBtn}>HOMBRE</Link>
+                <Link href="/mujer" className={styles.glassBtn}>MUJER</Link>
+              </div>
+            </div>
+          </article>
 
 
           {/* Derecha */}

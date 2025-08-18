@@ -1,4 +1,4 @@
-:root{
+.section{
   --edge: 12px;          /* mismos márgenes laterales que el resto */
   --radius: 14px;        /* radio contenedor */
   --card-radius: 22px;   /* radio card (ligeramente menor que 26 para variedad) */

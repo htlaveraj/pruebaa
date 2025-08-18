@@ -1,6 +1,6 @@
 /* src/components/showcase-mosaic.module.css */
 
-:root {
+.section {
     --edge: 12px;
     /* márgenes exteriores (igual que navbar/hero/cards) */
     --radius: 14px;
@@ -228,7 +228,7 @@
 
 /* ===== MOBILE FINO (≤ 640px): tipografías y paddings más compactos ===== */
 @media (max-width: 640px) {
-    :root {
+    .section {
         --gap: 12px;
     }
 

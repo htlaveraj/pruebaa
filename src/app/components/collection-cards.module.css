@@ -1,11 +1,11 @@
 /* src/components/collection-cards.module.css */
-
-:root {
-  --edge: 12px;             /* márgenes exteriores del shell: igual que navbar/hero */
-  --radius: 14px;           /* radio del shell */
-  --card-radius: 26px;      /* radio de cada card */
-  --chip-radius: 999px;     /* pill inicial */
-  --chip-radius-hover: 22px;/* morph al pasar */
+/* collection-cards.module.css */
+.section {
+  --edge: 12px;
+  --radius: 14px;
+  --card-radius: 26px;
+  --chip-radius: 999px;
+  --chip-radius-hover: 22px;
   --chip-bg: rgba(255, 255, 255, .06);
   --chip-border: rgba(255, 255, 255, .9);
 }

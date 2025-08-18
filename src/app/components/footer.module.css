@@ -1,7 +1,7 @@
 /* src/components/footer.module.css */
 
 /* ===== Tokens ===== */
-:root{
+.footer{
   --edge: 12px;              /* márgenes exteriores */
   --radius: 14px;            /* radio del contenedor */
   --gap: 16px;               /* separación interior */
@@ -143,10 +143,10 @@
 .madeBy a:hover{ text-decoration: underline; }
 
 /* ===== Estados de foco accesibles ===== */
-a:focus-visible, button:focus-visible, input:focus-visible{
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-  border-radius: 10px;
+.footer a:focus-visible, .footer button:focus-visible, .footer input:focus-visible{
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 10px;
 }
 
 /* ===== Responsive ===== */
@@ -155,7 +155,7 @@ a:focus-visible, button:focus-visible, input:focus-visible{
   .columns{ grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px){
-  :root{ --gap: 12px; }
+  .footer{ --gap: 12px; }
   .shell{ padding: clamp(14px, 3.2vw, 18px); }
 
   .columns{ grid-template-columns: 1fr; gap: 14px; }

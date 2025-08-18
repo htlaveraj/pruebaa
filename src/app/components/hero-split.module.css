@@ -1,7 +1,7 @@
 /* src/components/hero-split.module.css */
 
 /* Curva y duración más suave */
-:root {
+.section {
     --easing: cubic-bezier(.22, .75, .25, 1);
 }
 

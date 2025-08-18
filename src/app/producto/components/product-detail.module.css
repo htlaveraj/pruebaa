@@ -1,4 +1,4 @@
-:root{
+.section{
   --edge: 12px;
   --radius: 14px;
   --ink: #1a1d1f;
@@ -200,7 +200,7 @@
 
 /* ===== Responsive ===== */
 @media (max-width: 1100px){
-  :root{
+  .section{
     --leftWidth: 24%;
     --centerWidth: 52%;
     --rightWidth: 24%;
@@ -213,7 +213,7 @@
 }
 
 @media (max-width: 680px){
-  :root{
+  .section{
     --leftWidth: 6%;
     --centerWidth: 88%;
     --rightWidth: 6%;
