@@ -1,0 +1,246 @@
+/* src/components/hero-split.module.css */
+
+/* Curva y duración más suave */
+:root {
+    --easing: cubic-bezier(.22, .75, .25, 1);
+}
+
+.section {
+    position: relative;
+    padding: 0 0 16px;
+}
+
+/* Caja con mismos márgenes/radio que el nav */
+.shell {
+    position: relative;
+    margin: 12px;
+    /* = navbar */
+    border-radius: 14px;
+    /* = navbar */
+    border: 1px solid rgba(0, 0, 0, .08);
+    overflow: hidden;
+    background: linear-gradient(90deg, #f3f4f6 50%, #ffffff 50%);
+}
+
+/* IMPORTANTES para el bug móvil: stacking y espacio inferior de dots */
+.inner {
+    position: relative;
+    z-index: 1;
+    /* asegura que quede sobre el watermark */
+    --dots-space: clamp(36px, 6vw, 52px);
+    --dur: 900ms;
+    /* = DURATION en TS */
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(40px, 10vw, 120px) 16px calc(72px + var(--dots-space));
+    display: grid;
+    place-items: center;
+}
+
+/* Watermark queda por debajo SIEMPRE */
+.watermark {
+    position: absolute;
+    inset: 12px;
+    z-index: 0;
+    /* debajo del contenido */
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    letter-spacing: .2em;
+    font-size: clamp(64px, 18vw, 220px);
+    color: rgba(0, 0, 0, .06);
+    user-select: none;
+    pointer-events: none;
+}
+
+/* ==== ANIMACIÓN RULETA (más suave) ==== */
+.viewport {
+    position: relative;
+    width: 100%;
+    height: clamp(180px, 36vw, 320px);
+    perspective: 800px;
+    isolation: isolate;
+    /* stacking propio (iOS ayuda) */
+    overflow: visible;
+    /* evita “cortes” de capas animadas */
+}
+
+.frame {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    backface-visibility: hidden;
+    /* suaviza en iOS */
+}
+
+.imageWrap {
+    position: relative;
+    width: min(900px, 90vw);
+    height: 100%;
+}
+
+.image {
+    width: 100%;
+    object-fit: contain;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    /* promueve a capa GPU -> animación más fluida */
+}
+
+/* Entrante y saliente */
+.incoming {
+    animation: wheelIn var(--dur) var(--easing) both;
+}
+
+.outgoing {
+    animation: wheelOut var(--dur) var(--easing) both;
+}
+
+@keyframes wheelIn {
+    0% {
+        transform: translateX(-34%) translateY(3%) rotate(-14deg) scale(.97);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateX(-6%) translateY(-1%) rotate(-4deg) scale(1.01);
+        opacity: .95;
+    }
+
+    100% {
+        transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes wheelOut {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateX(8%) translateY(1%) rotate(4deg) scale(1.01);
+        opacity: .9;
+    }
+
+    100% {
+        transform: translateX(34%) translateY(-3%) rotate(14deg) scale(.97);
+        opacity: 0;
+    }
+}
+
+/* Texto */
+.caption {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.kicker {
+    font-size: 12px;
+    letter-spacing: .22em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, .6);
+}
+
+.title {
+    font-size: clamp(24px, 5vw, 44px);
+    font-weight: 400;
+    letter-spacing: .18em;
+}
+
+.actions {
+    margin-top: 16px;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 12px;
+    background: #e8eaee;
+    color: #111;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid #dfe3e8;
+}
+
+.cta:hover {
+    background: #dfe3e8;
+}
+
+/* Dots */
+.dots {
+    position: absolute;
+    bottom: 16px;
+    right: clamp(16px, 6vw, 40px);
+    display: inline-flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: 0;
+    background: rgba(0, 0, 0, .25);
+    cursor: pointer;
+}
+
+.dot:hover {
+    background: rgba(0, 0, 0, .45);
+}
+
+.active {
+    background: #111;
+    width: 9px;
+    height: 9px;
+}
+
+/* SOLO móvil: aseguramos alturas y centramos dots */
+@media (max-width: 720px) {
+    .shell {
+        background: linear-gradient(180deg, #f3f4f6 50%, #ffffff 50%);
+    }
+
+    .inner {
+        padding: 56px 16px calc(64px + var(--dots-space));
+    }
+
+    .viewport {
+        height: clamp(220px, 60vw, 360px);
+    }
+
+    /* ↑ más alto en móvil para que SIEMPRE se vea */
+    .dots {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        bottom: 14px;
+    }
+}
+
+/* Respeta reduce motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .incoming,
+    .outgoing {
+        animation: fade var(--dur) ease both;
+    }
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}

@@ -1,0 +1,106 @@
+/* src/components/collection-cards.module.css */
+
+:root {
+  --edge: 12px;             /* márgenes exteriores del shell: igual que navbar/hero */
+  --radius: 14px;           /* radio del shell */
+  --card-radius: 26px;      /* radio de cada card */
+  --chip-radius: 999px;     /* pill inicial */
+  --chip-radius-hover: 22px;/* morph al pasar */
+  --chip-bg: rgba(255, 255, 255, .06);
+  --chip-border: rgba(255, 255, 255, .9);
+}
+
+.section { position: relative; padding: 0 0 12px; }
+
+/* Contenedor con mismos laterales/radio que los anteriores */
+.shell {
+  margin: var(--edge);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 0, 0, .06);
+  background: #fff;
+  padding: 16px; /* respirito interior para que las cards no peguen al borde */
+}
+
+/* ===== Desktop/Tablet (sin cambios) ===== */
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ===== Móvil: carrusel horizontal ===== */
+@media (max-width: 640px) {
+  .grid {
+    /* convierte el grid a track horizontal */
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;             /* 1 card por “pantalla” con respiro */
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+  }
+  .card {
+    scroll-snap-align: center;
+    min-height: clamp(260px, 70vw, 420px); /* un poco más alta en móvil */
+  }
+  .grid::-webkit-scrollbar { height: 6px; }
+  .grid::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 999px; }
+  .grid::-webkit-scrollbar-track { background: transparent; }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  min-height: clamp(240px, 32vw, 420px);
+  isolation: isolate; /* para z-index limpios del chip */
+  transition: border-radius .28s cubic-bezier(.2,.8,.2,1), transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s cubic-bezier(.2,.8,.2,1);
+}
+.card:hover {
+  border-radius: calc(var(--card-radius) + 6px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .14);
+  transform: translateY(-1px);
+}
+
+/* Paletas actuales (ajústalas a tu gusto) */
+.nuevo  { background: #a3aaad; } /* blue-gray */
+.hombre { background: #4b4e4b; } /* olive-gray */
+.mujer  { background: #b6b6b9; } /* mauve-gray */
+.promo  { background: #4b4a4b; } /* taupe-gray */
+
+.media { position: absolute; inset: 0; }
+.img { object-fit: contain; object-position: center; transition: opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1); }
+.base { opacity: 1; transform: scale(1); }
+.zoom { opacity: 0; transform: scale(1.06); }
+.card:hover .base { opacity: 0; transform: scale(1.02); }
+.card:hover .zoom { opacity: 1; transform: scale(1.12); }
+
+/* Chip centrado que cambia de forma en hover */
+.badge {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: inline-grid; place-items: center;
+  height: 44px; padding: 0 22px;
+  border: 2px solid var(--chip-border);
+  background: var(--chip-bg);
+  backdrop-filter: blur(2px);
+  color: #fff; text-decoration: none; font-weight: 800; letter-spacing: .12em; font-size: 12px;
+  border-radius: var(--chip-radius);
+  transition: border-radius .32s cubic-bezier(.2,.8,.2,1), padding .32s cubic-bezier(.2,.8,.2,1), background .32s cubic-bezier(.2,.8,.2,1);
+  z-index: 2;
+}
+.card:hover .badge, .card:focus-visible .badge {
+  border-radius: var(--chip-radius-hover);
+  padding: 0 26px;
+  background: rgba(255, 255, 255, .1);
+}
+
+.badgeText { color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .25); }
+
+/* Accesibilidad: foco visible en la card completa */
+.card:focus-visible { outline: 3px solid rgba(255,255,255,.7); outline-offset: 0; }

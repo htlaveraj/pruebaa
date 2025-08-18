@@ -1,0 +1,99 @@
+.section {
+    position: relative;
+    padding: 0 0 4px;
+}
+
+/* Caja con los mismos márgenes y radio que nav/hero */
+.shell {
+    margin: 8px 12px 12px;
+    /* ↑ menos margen arriba, laterales = 12px */
+    border-radius: 14px;
+    /* = navbar/hero */
+    border: 1px solid rgba(0, 0, 0, .05);
+    /* borde más sutil */
+    background: #fff;
+    /* fondo limpio */
+    overflow: hidden;
+}
+
+.inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 8px 16px;
+    /* más compacto y simétrico con hero */
+}
+
+/* Layout de la cintilla */
+.list {
+    display: grid;
+    align-items: center;
+    gap: 10px;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    justify-content: center;
+}
+
+/* En pantallas chicas: carrusel autodeslizante + scroll-snap */
+@media (max-width: 900px) {
+    .list {
+        justify-content: start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .item {
+        scroll-snap-align: start;
+    }
+
+    .list::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .list::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, .2);
+        border-radius: 999px;
+    }
+
+    .list::-webkit-scrollbar-track {
+        background: transparent;
+    }
+}
+
+.item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .015);
+    /* chip más claro */
+    border: 1px solid rgba(0, 0, 0, .05);
+    /* borde sutil */
+    white-space: nowrap;
+}
+
+.item:hover {
+    background: rgba(0, 0, 0, .03);
+}
+
+/* Ícono y texto en gris oscuro (casi negro) */
+.icon {
+    color: #1a1d1f;
+    opacity: 1;
+}
+
+.label {
+    color: #1a1d1f;
+    font-weight: 600;
+    letter-spacing: .02em;
+    font-size: 13px;
+}
+
+/* Motion-safe: fallback sin animación automática */
+@media (prefers-reduced-motion: reduce) {
+    .list {
+        scroll-behavior: auto;
+    }
+}

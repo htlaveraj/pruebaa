@@ -1,0 +1,293 @@
+/* src/components/showcase-mosaic.module.css */
+
+:root {
+    --edge: 12px;
+    /* márgenes exteriores (igual que navbar/hero/cards) */
+    --radius: 14px;
+    /* radio del contenedor */
+    --tile-radius: 26px;
+    /* radio de cada tile interno */
+    --gap: 16px;
+    /* separación entre tiles */
+}
+
+.section {
+    position: relative;
+    padding: 0 0 12px;
+}
+
+/* Contenedor principal */
+.shell {
+    position: relative;
+    margin: var(--edge);
+    border-radius: var(--radius);
+    padding: var(--gap);
+}
+
+/* Grid 2 columnas; derecha estira al alto de la izquierda */
+.grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: var(--gap);
+    align-items: stretch;
+    z-index: 0;
+}
+
+/* ===== Tiles ===== */
+.leftTile,
+.topTile,
+.smallTile,
+.textCard {
+    position: relative;
+    overflow: hidden;
+    /* recorte duro */
+    border-radius: var(--tile-radius);
+    background: #f3f4f6;
+    border: 1px solid rgba(0, 0, 0, .06);
+    clip-path: inset(0 round var(--tile-radius));
+    /* asegura recorte GPU */
+    contain: layout paint;
+    /* nada pinta fuera */
+    isolation: isolate;
+    /* stacking context propio */
+    z-index: 1;
+}
+
+/* IZQUIERDA (imagen grande) — SIN fill: contenedor proporcional */
+.ratio {
+    width: 100%;
+    aspect-ratio: 9 / 11;
+    /* controla la altura visible */
+    min-height: clamp(320px, 44vw, 560px);
+}
+
+.imgCoverStatic {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* DERECHA */
+.rightCol {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    /* dos filas iguales */
+    gap: var(--gap);
+    height: 100%;
+    z-index: 1;
+}
+
+.bottomRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+}
+
+/* Imágenes de la derecha (pueden usar fill dentro de .media) */
+.media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.imgCover {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== Overlay (texto + botones) en la izquierda ===== */
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    padding: clamp(18px, 4vw, 36px);
+    color: #fff;
+    /* Cambia a #111 si tu foto es muy clara; móvil ajusta abajo */
+    z-index: 2;
+}
+
+.kicker {
+    font-size: 11px;
+    font-weight: 800;
+    opacity: .95;
+    color: #111;
+}
+
+.title {
+    font-weight: 700;
+    letter-spacing: .02em;
+    font-size: 50px;
+    /* desktop/tablet */
+    color: #111;
+}
+
+.subtitle {
+    font-size: 16px;
+    opacity: .9;
+    color: #111;
+}
+
+/* Botones glass-outline */
+.ctas {
+    display: inline-flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.glassBtn {
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    color: #151414;
+    text-decoration: none;
+    border: 1px solid rgba(62, 60, 60, 0.7);
+    backdrop-filter: blur(8px) saturate(130%);
+}
+
+.glassBtn:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .22);
+    border-color: rgba(255, 255, 255, .9);
+}
+
+/* Tarjeta de texto inferior derecha */
+.textCard {
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    padding: clamp(16px, 3.2vw, 28px);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .06);
+}
+
+.textTitle {
+    font-size: clamp(20px, 3vw, 28px);
+    color: #111;
+    font-weight: 900;
+}
+
+.textBody {
+    color: #333;
+    line-height: 1.55;
+}
+
+.cardCta {
+    justify-self: start;
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, .14);
+    background: #ededed;
+    color: #111;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-decoration: none;
+    font-size: 11.5px;
+}
+
+.cardCta:hover {
+    background: #e9ebee;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1100px) {
+    .grid {
+        grid-template-columns: 1.3fr 1fr;
+    }
+}
+
+@media (max-width: 860px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rightCol {
+        grid-template-rows: auto;
+    }
+
+    .ratio {
+        aspect-ratio: 4 / 3;
+    }
+
+    /* un poco más alto en mobile */
+}
+
+/* ===== MOBILE FINO (≤ 640px): tipografías y paddings más compactos ===== */
+@media (max-width: 640px) {
+    :root {
+        --gap: 12px;
+    }
+
+    /* separaciones internas más pequeñas */
+    .shell {
+        padding: var(--gap);
+    }
+
+    .overlay {
+        padding: 16px;
+        gap: 8px;
+    }
+
+    .kicker {
+        font-size: 10px;
+        letter-spacing: .18em;
+    }
+
+    .title {
+        /* más pequeño y fluido en móvil */
+        font-size: clamp(22px, 8vw, 32px);
+        letter-spacing: .01em;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        opacity: .95;
+    }
+
+    .ctas {
+        gap: 6px;
+    }
+
+    .glassBtn {
+        height: 32px;
+        padding: 0 12px;
+        font-size: 10.5px;
+        letter-spacing: .12em;
+        border-radius: 999px;
+    }
+
+    .textCard {
+        padding: 14px;
+        gap: 8px;
+    }
+
+    .textTitle {
+        font-size: clamp(18px, 6vw, 22px);
+    }
+
+    .textBody {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .cardCta {
+        height: 32px;
+        padding: 0 10px;
+        font-size: 10.5px;
+        letter-spacing: .07em;
+    }
+}

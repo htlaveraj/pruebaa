@@ -1,0 +1,224 @@
+:root{
+  --edge: 12px;
+  --radius: 14px;
+  --ink: #1a1d1f;
+  --muted: #6b7075;
+  --line: rgba(0,0,0,.08);
+  --sand: #ece8df;     /* por si luego quieres fondo arena */
+  --panel: #ffffff;
+  --chip: #eeedea;
+
+  /* Triptych */
+  --gap: 22px;
+  --leftWidth: 26%;
+  --centerWidth: 48%;
+  --rightWidth: 26%;
+}
+
+.section{ padding: 0 0 16px; }
+
+.shell{
+  margin: var(--edge);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: #fff;
+  overflow: clip;
+}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb{
+  display:flex; gap:8px; align-items:center;
+  font-size: 12px; color: var(--muted);
+  padding: 12px 14px 0;
+}
+.breadcrumb a{ color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover{ text-decoration: underline; }
+
+/* ===== HERO TRIPTYCH (solo imagen) ===== */
+.hero{
+  /* si quieres un marco exterior, usa fondo arena: background: var(--sand); */
+  background: transparent;
+  margin: 12px 14px 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: clamp(10px, 2.2vw, 18px);
+}
+
+.stageTriptych{
+  position: relative;
+  border-radius: 10px;
+  background: transparent;  /* solo imagen */
+  overflow: hidden;
+  min-height: clamp(320px, 56vh, 660px);
+  display: grid;
+  align-items: center;
+}
+
+.triptych{
+  display: grid;
+  grid-template-columns: var(--leftWidth) var(--centerWidth) var(--rightWidth);
+  gap: var(--gap);
+  align-items: center;
+  width: 100%;
+}
+
+/* Panel contenedor: sin bordes/sombras, solo imagen */
+.panel{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  filter: none;
+}
+.left,.center,.right{ box-shadow: none !important; transform: none !important; filter: none !important; }
+
+.panelImg{
+  object-fit: contain;     /* que se vea completa */
+  width: 100%;
+  height: 100%;
+}
+
+/* flechas y contador discretos */
+.navBtn{
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; display:grid; place-items:center;
+  border-radius: 999px; border: 0;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(6px);
+}
+.prev{ left: 10px; }
+.next{ right: 10px; }
+
+.counter{
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; color: var(--muted);
+  background: rgba(255,255,255,.78);
+  border: 0;
+  padding: 4px 8px; border-radius: 999px;
+}
+
+/* dots */
+.thumbRail{ display:flex; gap:8px; justify-content:center; padding: 10px 0 2px; }
+.thumbDot{ width: 8px; height: 8px; border-radius: 999px; background: rgba(0,0,0,.22); border: none; cursor: pointer; }
+.thumbDotActive{ background: var(--ink); }
+
+/* ===== Body grid ===== */
+.bodyGrid{
+  display: grid;
+  grid-template-columns: 1.2fr .9fr;
+  gap: 18px;
+  padding: 16px 14px 22px;
+}
+.leftCol{ padding: 8px 10px; }
+.genderTabs{ display:flex; gap:10px; margin-bottom: 10px; }
+.gtab{
+  font-size: 11px; letter-spacing: .12em; font-weight: 800;
+  border: 1px solid var(--line); background: #f6f6f6; color: var(--ink);
+  padding: 6px 10px; border-radius: 999px;
+}
+.gtabActive{ background: #fff; }
+
+.title{
+  font-size: clamp(22px, 3.6vw, 36px);
+  font-weight: 800; color: var(--ink);
+  letter-spacing: .01em; margin: 2px 0 8px;
+}
+.priceRow{ display:flex; align-items:baseline; gap:10px; margin-bottom: 8px; }
+.price{ font-weight: 900; color: var(--ink); font-size: 20px; }
+.priceOld{ color: var(--muted); text-decoration: line-through; font-weight: 700; font-size: 14px; }
+.subtitle{ color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+.rating{ display:flex; align-items:center; gap:6px; color: var(--ink); }
+.starDim{ opacity: .35; }
+.reviews{ color: var(--muted); margin-left: 4px; font-size: 12px; }
+
+.expander{ margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+.expander summary{ cursor: pointer; font-weight: 800; color: var(--ink); }
+.specList{ margin: 8px 0 0 18px; color: var(--muted); }
+
+/* ===== Buy card ===== */
+.buyCard{
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 14px;
+  display: grid; gap: 12px;
+  align-self: start;
+}
+.badge{
+  position: absolute; top: 10px; right: 10px;
+  font-size: 11px; font-weight: 800; letter-spacing: .12em; color: var(--ink);
+  background: var(--chip);
+  border: 1px solid rgba(0,0,0,.12);
+  padding: 6px 10px; border-radius: 999px;
+}
+.block{ display:grid; gap:8px; }
+.blockLabel{ font-size: 12px; color: var(--muted); }
+
+.swatches{ display:flex; gap:10px; flex-wrap: wrap; }
+.swatch{
+  width: 22px; height: 22px; border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.22);
+  cursor: pointer;
+}
+.swatchActive{ outline: 2px solid #111; outline-offset: 2px; }
+
+.sizeRow{ display:flex; gap:8px; align-items:center; }
+.select{
+  flex: 1 1 auto;
+  height: 38px; padding: 0 10px; border-radius: 10px;
+  border: 1px solid var(--line); background: #f5f6f7; color: var(--ink);
+}
+.ghostBtn{
+  display:inline-flex; gap:6px; align-items:center;
+  height: 38px; padding: 0 10px; border-radius: 10px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+}
+
+.ctaRow{ display:flex; gap:8px; align-items:center; }
+.buyBtn{
+  flex: 1 1 auto;
+  height: 44px; border-radius: 12px; border: 0;
+  background: #111; color: #fff; font-weight: 800; letter-spacing: .06em;
+}
+.buyBtn:disabled{ opacity: .5; }
+.wishBtn{
+  width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line);
+  background: #fff; display:grid; place-items:center;
+}
+
+.quickPerks{ display:grid; gap:6px; margin-top: 4px; color: var(--muted); }
+.quickPerks li{ display:flex; gap:8px; align-items:center; }
+
+/* ===== Sticky móvil ===== */
+.stickyBar{ display:none; }
+.stickyPrice{ display:flex; gap:8px; align-items:baseline; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1100px){
+  :root{
+    --leftWidth: 24%;
+    --centerWidth: 52%;
+    --rightWidth: 24%;
+    --gap: 14px;
+  }
+  .bodyGrid{ grid-template-columns: 1fr; }
+  .buyCard{ position: static; }
+  .stageTriptych{ min-height: clamp(300px, 52vh, 560px); }
+  .panel{ aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 680px){
+  :root{
+    --leftWidth: 6%;
+    --centerWidth: 88%;
+    --rightWidth: 6%;
+    --gap: 8px;
+  }
+  .stageTriptych{ min-height: 58vh; }
+  .panel{ aspect-ratio: 5 / 4; }
+}
